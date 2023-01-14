@@ -1,13 +1,9 @@
 import re
-import requests
 from pymongo import MongoClient
+from db import get_address_by_cep
 
 def get_endereco_por_cep(cep):
-    url = f"https://viacep.com.br/ws/{cep}/json"
-    response = requests.get(url)
-    if response.status_code != 200:
-        return None
-    data = response.json()
+    data = get_address_by_cep(cep)
 
     if "cep" not in data or "logradouro" not in data or "bairro" not in data or "localidade" not in data or "uf" not in data:
         return None
