@@ -1,6 +1,22 @@
 import re
+
+import requests
 from pymongo import MongoClient
-from db import get_address_by_cep
+
+def get_address_by_cep(cep):
+    url = f"https://viacep.com.br/ws/{cep}/json"
+    response = requests.get(url)
+    if response.status_code != 200:
+        return None
+    return response.json()
+def insert_endereco_to_mongodb(endereco):
+    try:
+        client = MongoClient("mongodb+srv://dbUserJrs:ItXYBOph51vcXK1N@cluster0.23sjuth.mongodb.net/?retryWrites=true&w=majority")
+        db = client.CEPS
+        enderecos = db.enderecos
+        enderecos.insert_one(endereco)
+    except Exception as e:
+        print(f"An error occurred while trying to insert the data in MongoDB: {e}")
 
 def get_endereco_por_cep(cep):
     data = get_address_by_cep(cep)
@@ -15,13 +31,8 @@ def get_endereco_por_cep(cep):
         "localidade": data["localidade"],
         "uf": data["uf"]
     }
-    try:
-        client = MongoClient("mongodb+srv://dbUserJrs:ItXYBOph51vcXK1N@cluster0.23sjuth.mongodb.net/?retryWrites=true&w=majority")
-        db = client.CEPS
-        enderecos = db.enderecos
-        enderecos.insert_one(endereco)
-    except Exception as e:
-        print(f"An error occurred while trying to insert the data in MongoDB: {e}")
+
+    insert_endereco_to_mongodb(endereco)
     return endereco
 
 
