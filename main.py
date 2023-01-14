@@ -1,22 +1,6 @@
 import re
-import requests
-from pymongo import MongoClient
-
-def get_res_api(cep):
-    url = f"https://viacep.com.br/ws/{cep}/json"
-    response = requests.get(url)
-    if response.status_code != 200:
-        return None
-    return response.json()
-
-def insert_endereco_to_mongodb(endereco):
-    try:
-        client = MongoClient("mongodb+srv://dbUserJrs:ItXYBOph51vcXK1N@cluster0.23sjuth.mongodb.net/?retryWrites=true&w=majority")
-        db = client.CEPS
-        enderecos = db.enderecos
-        enderecos.insert_one(endereco)
-    except Exception as e:
-        print(f"An error occurred while trying to insert the data in MongoDB: {e}")
+from api import get_res_api
+from db import insert_endereco_to_mongodb
 
 def get_endereco_por_cep(cep):
     data = get_res_api(cep)
