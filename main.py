@@ -9,6 +9,9 @@ def get_endereco_por_cep(cep):
         return None
     data = response.json()
 
+    if "cep" not in data or "logradouro" not in data or "bairro" not in data or "localidade" not in data or "uf" not in data:
+        return None
+
     endereco = {
         "cep": data["cep"],
         "logradouro": data["logradouro"],
