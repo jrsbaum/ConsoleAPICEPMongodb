@@ -1,3 +1,4 @@
+import re
 import requests
 from pymongo import MongoClient
 
@@ -26,17 +27,19 @@ def get_endereco_por_cep(cep):
 
 
 while True:
-    cep = input("Por favor, digite um CEP: ")
-    if cep is None:
-        print("CEP invÃ¡lido. Por favor, tente novamente.")
+    cep = input("Por favor, digite um CEP ou digite 'sair' para sair: ")
+    if cep == 'sair':
+        break
+    elif not re.match("^[0-9]{8}$", cep):
+        print("CEP inválido. Por favor, tente novamente.")
     else:
         endereco = get_endereco_por_cep(cep)
         if endereco is None:
-            print("CEP invÃ¡lido. Por favor, tente novamente.")
+            print("CEP inválido. Por favor, tente novamente.")
         else:
             print(f"CEP: {endereco['cep']}")
             print(f"Logradouro: {endereco['logradouro']}")
             print(f"Bairro: {endereco['bairro']}")
             print(f"Localidade: {endereco['localidade']}")
-            print(f"UF: {endereco['uf']}")
-            break
+            print(f"UF: {endereco['uf']} \n")
+            print(f"CEP {cep} registrado no sistema com sucesso.")
