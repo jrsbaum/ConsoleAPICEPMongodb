@@ -1,14 +1,14 @@
 import re
-
 import requests
 from pymongo import MongoClient
 
-def get_address_by_cep(cep):
+def get_res_api(cep):
     url = f"https://viacep.com.br/ws/{cep}/json"
     response = requests.get(url)
     if response.status_code != 200:
         return None
     return response.json()
+
 def insert_endereco_to_mongodb(endereco):
     try:
         client = MongoClient("mongodb+srv://dbUserJrs:ItXYBOph51vcXK1N@cluster0.23sjuth.mongodb.net/?retryWrites=true&w=majority")
@@ -19,7 +19,7 @@ def insert_endereco_to_mongodb(endereco):
         print(f"An error occurred while trying to insert the data in MongoDB: {e}")
 
 def get_endereco_por_cep(cep):
-    data = get_address_by_cep(cep)
+    data = get_res_api(cep)
 
     if "cep" not in data or "logradouro" not in data or "bairro" not in data or "localidade" not in data or "uf" not in data:
         return None
