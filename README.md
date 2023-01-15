@@ -33,4 +33,4 @@ mongo_client_key = "mongodb://[username:password@]host1[:port1][,...hostN[:portN
 
 ```
 
-### Substitua o valor de `mongo_cliente_lkey` pela sua chave no MongoDB.
+### Substitua o valor de `mongo_cliente_key` pela sua chave no MongoDB.
