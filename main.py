@@ -5,7 +5,7 @@ from db import insert_endereco_to_mongodb
 def get_endereco_por_cep(cep):
     data = get_res_api(cep)
 
-    if "cep" not in data or "logradouro" not in data or "bairro" not in data or "localidade" not in data or "uf" not in data:
+    if "erro" in data:
         return None
 
     endereco = {
