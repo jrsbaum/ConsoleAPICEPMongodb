@@ -24,13 +24,14 @@ Esta função recebe um dado de endereço e o insere no banco de dados MongoDB. 
 
 Esta função recebe um número cep, obtém os dados de endereço da API, insere-o no banco de dados MongoDB e retorna os dados de endereço em um dicionário.
 
-### Para o código funcionar, precisa de um arquivo que não foi versionado por questões de segurança.
+### Para o código funcionar, precisa de um arquivo cfg.py que não foi versionado por questões de segurança.
 
 ### O arquivo contém o seguinte código:
 
 ```
 mongo_client_key = "mongodb://[username:password@]host1[:port1][,...hostN[:portN]][/[defaultauthdb][?options]]"
-
+url_api = "https://url_de_exemplo.com.br/ws/"
 ```
 
-### Substitua o valor de `mongo_cliente_key` pela sua chave no MongoDB.
+#### Substitua o valor de `mongo_cliente_key` pela sua chave no MongoDB.
+#### Substitua o valor de `url_api` pela api que será usada.
