@@ -2,6 +2,7 @@ import re
 from api import get_res_api
 from db import insert_endereco_to_mongodb
 
+
 def get_endereco_por_cep(cep):
     data = get_res_api(cep)
 

@@ -1,5 +1,5 @@
 from pymongo import MongoClient
-from key import mongo_client_key
+from cfg import mongo_client_key
 
 def insert_endereco_to_mongodb(endereco):
     try:
